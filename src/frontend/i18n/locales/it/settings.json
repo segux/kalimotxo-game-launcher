@@ -1,0 +1,28 @@
+{
+  "title": "Impostazioni",
+  "subtitle": "Runtime, Wine e diagnostica di sistema",
+  "tabs": {
+    "runtime": "Runtime Wine",
+    "wine": "Wine Manager",
+    "system": "Sistema"
+  },
+  "language": {
+    "title": "Lingua",
+    "description": "Scegli la lingua dell'interfaccia Kalimotxo.",
+    "names": {
+      "es": "Español",
+      "en": "English",
+      "fr": "Français",
+      "it": "Italiano",
+      "pt": "Português",
+      "de": "Deutsch"
+    }
+  },
+  "wine": {
+    "installedTitle": "Wine installato",
+    "active": "Attivo: {{name}}",
+    "activeNone": "nessuno",
+    "noVersions": "Nessuna versione nel catalogo — usa Setup",
+    "bottlesTitle": "Bottiglie"
+  }
+}

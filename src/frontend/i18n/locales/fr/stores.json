@@ -1,0 +1,53 @@
+{
+  "platforms": {
+    "myPlatforms": "Mes plateformes",
+    "myPlatformsSub": "Connectez et lancez vos clients de jeux",
+    "comingSoon": "Bientôt",
+    "comingSoonSub": "Steam, Epic Games et plus dans un seul launcher",
+    "featured": "Plateforme à la une",
+    "runtimeWine": "Runtime Wine"
+  },
+  "library": {
+    "title": "Bibliothèque",
+    "subtitle": "Vos jeux installés de toutes les plateformes apparaîtront ici.",
+    "empty": "Aucune plateforme active.",
+    "openManager": "Ouvrir le gestionnaire",
+    "footer": "Les prochaines versions indexeront les titres Wine installés par boutique."
+  },
+  "downloads": {
+    "title": "Téléchargements",
+    "subtitle": "File d'installation des clients et correctifs. Utilisée quand plusieurs boutiques seront actives."
+  },
+  "comingSoon": {
+    "body": "Kalimotxo unifiera plusieurs boutiques dans un launcher. {{store}} arrivera dans une mise à jour future.",
+    "notify": "Me prévenir quand disponible",
+    "hint": "Pour l'instant, utilisez Battle.net depuis Plateformes."
+  },
+  "battlenet": {
+    "clientStatus": "État du client",
+    "statusReady": "Prêt à jouer",
+    "statusIncomplete": "Installation incomplète",
+    "statusWizard": "Terminez l'assistant Blizzard",
+    "statusNotInstalled": "Non installé",
+    "badgeRuntime": "Runtime Wine",
+    "badgeClient": "Client Blizzard",
+    "badgeDlls": "DLL VC++/UCRT",
+    "play": "Jouer",
+    "completeInstall": "Terminer l'installation",
+    "installWine": "Installer dans Wine",
+    "compatibleGames": "Jeux compatibles",
+    "footer": "Backend Wine dédié · wined3d dans le launcher",
+    "errorLabel": "{{action}} : {{message}}"
+  },
+  "taglines": {
+    "battlenet": "Blizzard — WoW, Diablo, Overwatch et plus",
+    "epic": "Epic Games Store et exclusivités",
+    "steam": "La plus grande bibliothèque PC",
+    "gog": "Jeux sans DRM sur GOG.com",
+    "amazon": "Prime Gaming et titres Amazon"
+  },
+  "availability": {
+    "coming_soon": "Bientôt",
+    "planned": "Prévu"
+  }
+}

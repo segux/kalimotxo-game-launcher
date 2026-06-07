@@ -1,0 +1,53 @@
+{
+  "platforms": {
+    "myPlatforms": "Meine Plattformen",
+    "myPlatformsSub": "Spiele-Clients verbinden und starten",
+    "comingSoon": "Demnächst",
+    "comingSoonSub": "Steam, Epic Games und mehr in einem Launcher",
+    "featured": "Empfohlene Plattform",
+    "runtimeWine": "Wine-Runtime"
+  },
+  "library": {
+    "title": "Bibliothek",
+    "subtitle": "Installierte Spiele aller Plattformen erscheinen hier.",
+    "empty": "Keine aktiven Plattformen.",
+    "openManager": "Manager öffnen",
+    "footer": "Künftige Versionen indexieren Wine-installierte Titel pro Store."
+  },
+  "downloads": {
+    "title": "Downloads",
+    "subtitle": "Warteschlange für Client- und Patch-Installation. Bei mehreren aktiven Stores."
+  },
+  "comingSoon": {
+    "body": "Kalimotxo vereint mehrere Stores in einem Launcher. {{store}} kommt in einem künftigen Update.",
+    "notify": "Benachrichtigen wenn verfügbar",
+    "hint": "Nutzen Sie vorerst Battle.net unter Plattformen."
+  },
+  "battlenet": {
+    "clientStatus": "Client-Status",
+    "statusReady": "Spielbereit",
+    "statusIncomplete": "Unvollständige Installation",
+    "statusWizard": "Blizzard-Assistent abschließen",
+    "statusNotInstalled": "Nicht installiert",
+    "badgeRuntime": "Wine-Runtime",
+    "badgeClient": "Blizzard-Client",
+    "badgeDlls": "VC++/UCRT-DLLs",
+    "play": "Spielen",
+    "completeInstall": "Installation abschließen",
+    "installWine": "In Wine installieren",
+    "compatibleGames": "Kompatible Spiele",
+    "footer": "Dediziertes Wine-Backend · wined3d im Launcher",
+    "errorLabel": "{{action}}: {{message}}"
+  },
+  "taglines": {
+    "battlenet": "Blizzard — WoW, Diablo, Overwatch und mehr",
+    "epic": "Epic Games Store und Exklusives",
+    "steam": "Die größte PC-Bibliothek",
+    "gog": "DRM-freie Spiele von GOG.com",
+    "amazon": "Prime Gaming und Amazon-Titel"
+  },
+  "availability": {
+    "coming_soon": "Demnächst",
+    "planned": "Geplant"
+  }
+}

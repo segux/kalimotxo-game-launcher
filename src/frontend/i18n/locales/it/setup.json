@@ -1,0 +1,68 @@
+{
+  "wizardTitle": "Configurazione Kalimotxo",
+  "wizardSubtitle": "Prepara il Mac per Wine e Battle.net",
+  "steps": {
+    "welcome": "Benvenuto",
+    "system": "Sistema",
+    "runtime": "Runtime",
+    "battlenet": "Battle.net",
+    "done": "Fatto"
+  },
+  "welcome": {
+    "title": "Benvenuto",
+    "body": "Kalimotxo può installare quasi tutto: Homebrew (se manca), cabextract, GStreamer, Rosetta, Wine, DXMT e winetricks. macOS può chiedere la password amministratore una volta. Il primo avvio richiede spesso diversi minuti.",
+    "itemSystem": "Strumenti di sistema (Homebrew, cabextract, GStreamer)",
+    "itemRuntime": "Runtime Wine in ~/.kalimotxo",
+    "itemBattleNet": "Poi potrai installare Battle.net da Piattaforme",
+    "skip": "Esplora senza installare",
+    "skipHint": "Entra nel launcher per vedere l'interfaccia. Battle.net e Wine richiederanno il setup in seguito."
+  },
+  "system": {
+    "title": "Requisiti di sistema",
+    "homebrew": "Homebrew",
+    "cabextract": "cabextract",
+    "gstreamer": "GStreamer",
+    "rosetta": "Rosetta 2 (consigliato)",
+    "hint": "Senza Homebrew, «Installa dipendenze» o «Prepara tutto» proverà a installarlo (password richiesta). cabextract può essere scaricato anche senza brew.",
+    "installDeps": "Installa dipendenze",
+    "logInstalling": "Installazione dipendenze con Homebrew…"
+  },
+  "runtime": {
+    "title": "Runtime Kalimotxo",
+    "body": "Scarica Wine Staging, DXMT e winetricks (~centinaia di MB).",
+    "download": "Scarica runtime",
+    "logDownloading": "Download di Wine, DXMT e winetricks…"
+  },
+  "done": {
+    "title": "Tutto pronto",
+    "body": "Kalimotxo può installare e avviare Battle.net. Vai in Piattaforme e apri Gestisci su Battle.net.",
+    "goPlatforms": "Vai a Piattaforme"
+  },
+  "auto": {
+    "title": "Installazione automatica",
+    "body": "Un clic: Rosetta, Homebrew (se serve), cabextract, GStreamer e runtime Wine. Accetta il dialogo amministratore se macOS lo mostra.",
+    "button": "Prepara tutto automaticamente",
+    "busy": "Preparazione…"
+  },
+  "logTitle": "Log di installazione",
+  "progress": {
+    "downloadingWine": "Download di Wine Staging…",
+    "downloadingWinePct": "Download di Wine…",
+    "extractingWine": "Estrazione di Wine…",
+    "wineInstalled": "Wine installato",
+    "downloadingDxmt": "Download di DXMT…",
+    "downloadingDxmtPct": "Download di DXMT…",
+    "dxmtInstalled": "DXMT installato",
+    "installingWinetricks": "Installazione di winetricks…",
+    "winetricksReady": "winetricks pronto"
+  },
+  "settings": {
+    "checksTitle": "Controlli di sistema",
+    "runtimeTitle": "Runtime Wine",
+    "runtimeStatus": "Stato: {{status}}",
+    "runtimeReady": "Pronto",
+    "runtimePending": "In attesa",
+    "installAll": "Installa tutto",
+    "loading": "Caricamento setup…"
+  }
+}

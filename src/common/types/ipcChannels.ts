@@ -1,0 +1,44 @@
+import type { AsyncIPCFunctions } from './ipc'
+
+/** Única lista de canales invoke — preload y handlers deben coincidir. */
+export const IPC_INVOKE_CHANNELS = [
+  'getLocale',
+  'setLocale',
+  'getSystemStatus',
+  'getSetupState',
+  'setupDownloadComponent',
+  'setupDownloadAll',
+  'getSetupWizardState',
+  'skipSetupWizard',
+  'setupInstallSystemDeps',
+  'setupRunWizard',
+  'getBattleNetStatus',
+  'battleNetInstall',
+  'battleNetRepair',
+  'battleNetRepairBottle',
+  'battleNetLaunch',
+  'battleNetUninstall',
+  'battleNetCheckClient',
+  'battleNetCancel',
+  'battleNetClearLoginCache',
+  'battleNetWakeAgent',
+  'battleNetLaunchGame',
+  'setupImportD3dmetalFromCrossOver',
+  'setupImportD3dmetalFromDmg',
+  'setupEnsureD3dmetal',
+  'setupRepairRuntime',
+  'getWineVersions',
+  'getWineInstalled',
+  'getWineRepositories',
+  'refreshWineCatalog',
+  'installWineVersion',
+  'removeWineVersion',
+  'setActiveWineVersion',
+  'getWineInstallStatus',
+  'listBottles',
+  'getDetectedWine',
+  'setWineLayer'
+] as const satisfies ReadonlyArray<keyof AsyncIPCFunctions>
+
+type MissingChannel = Exclude<keyof AsyncIPCFunctions, (typeof IPC_INVOKE_CHANNELS)[number]>
+type _AssertAllChannelsListed = MissingChannel extends never ? true : MissingChannel

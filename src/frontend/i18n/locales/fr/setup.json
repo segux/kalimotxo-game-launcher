@@ -1,0 +1,68 @@
+{
+  "wizardTitle": "Configuration de Kalimotxo",
+  "wizardSubtitle": "Préparez votre Mac pour Wine et Battle.net",
+  "steps": {
+    "welcome": "Bienvenue",
+    "system": "Système",
+    "runtime": "Runtime",
+    "battlenet": "Battle.net",
+    "done": "Terminé"
+  },
+  "welcome": {
+    "title": "Bienvenue",
+    "body": "Kalimotxo peut tout installer pour vous : Homebrew (si absent), cabextract, GStreamer, Rosetta, Wine, DXMT et winetricks. macOS peut demander votre mot de passe administrateur une fois. La première fois prend souvent plusieurs minutes.",
+    "itemSystem": "Outils système (Homebrew, cabextract, GStreamer)",
+    "itemRuntime": "Runtime Wine dans ~/.kalimotxo",
+    "itemBattleNet": "Ensuite, installez Battle.net depuis Plateformes",
+    "skip": "Explorer sans installer",
+    "skipHint": "Ouvrez le launcher pour voir l'interface. Battle.net et Wine nécessiteront le setup plus tard."
+  },
+  "system": {
+    "title": "Prérequis système",
+    "homebrew": "Homebrew",
+    "cabextract": "cabextract",
+    "gstreamer": "GStreamer",
+    "rosetta": "Rosetta 2 (recommandé)",
+    "hint": "Sans Homebrew, « Installer les dépendances » ou « Tout préparer » tentera l'installation (mot de passe requis). cabextract peut aussi être téléchargé sans brew.",
+    "installDeps": "Installer les dépendances",
+    "logInstalling": "Installation des dépendances avec Homebrew…"
+  },
+  "runtime": {
+    "title": "Runtime Kalimotxo",
+    "body": "Télécharge Wine Staging, DXMT et winetricks (~plusieurs centaines de Mo).",
+    "download": "Télécharger le runtime",
+    "logDownloading": "Téléchargement de Wine, DXMT et winetricks…"
+  },
+  "done": {
+    "title": "Tout est prêt",
+    "body": "Kalimotxo peut installer et lancer Battle.net. Allez dans Plateformes et ouvrez Gérer sur Battle.net.",
+    "goPlatforms": "Aller aux Plateformes"
+  },
+  "auto": {
+    "title": "Installation automatique",
+    "body": "Un clic : Rosetta, Homebrew (si besoin), cabextract, GStreamer et runtime Wine. Acceptez la boîte administrateur si macOS l'affiche.",
+    "button": "Tout préparer automatiquement",
+    "busy": "Préparation…"
+  },
+  "logTitle": "Journal d'installation",
+  "progress": {
+    "downloadingWine": "Téléchargement de Wine Staging…",
+    "downloadingWinePct": "Téléchargement de Wine…",
+    "extractingWine": "Extraction de Wine…",
+    "wineInstalled": "Wine installé",
+    "downloadingDxmt": "Téléchargement de DXMT…",
+    "downloadingDxmtPct": "Téléchargement de DXMT…",
+    "dxmtInstalled": "DXMT installé",
+    "installingWinetricks": "Installation de winetricks…",
+    "winetricksReady": "winetricks prêt"
+  },
+  "settings": {
+    "checksTitle": "Vérifications système",
+    "runtimeTitle": "Runtime Wine",
+    "runtimeStatus": "État : {{status}}",
+    "runtimeReady": "Prêt",
+    "runtimePending": "En attente",
+    "installAll": "Tout installer",
+    "loading": "Chargement du setup…"
+  }
+}

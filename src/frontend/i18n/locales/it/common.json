@@ -1,0 +1,27 @@
+{
+  "appName": "Kalimotxo",
+  "nav": {
+    "home": "Home",
+    "downloads": "Download",
+    "wine": "Wine",
+    "settings": "Impostazioni",
+    "setup": "Setup",
+    "platforms": "Piattaforme",
+    "library": "Libreria"
+  },
+  "actions": {
+    "start": "Inizia",
+    "next": "Avanti →",
+    "manage": "Gestisci",
+    "ok": "OK",
+    "loading": "Caricamento…",
+    "play": "Gioca",
+    "install": "Installa",
+    "repair": "Ripara",
+    "refresh": "Aggiorna"
+  },
+  "badge": {
+    "ok": "OK",
+    "pending": "—"
+  }
+}

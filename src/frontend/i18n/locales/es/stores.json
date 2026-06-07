@@ -1,0 +1,73 @@
+{
+  "platforms": {
+    "myPlatforms": "Mis plataformas",
+    "myPlatformsSub": "Conecta y lanza tus clientes de juegos",
+    "comingSoon": "Próximamente",
+    "comingSoonSub": "Steam, Epic Games y más en el mismo launcher",
+    "featured": "Plataforma destacada",
+    "runtimeWine": "Runtime Wine"
+  },
+  "library": {
+    "title": "Biblioteca",
+    "subtitle": "Tus juegos instalados de todas las plataformas aparecerán aquí.",
+    "empty": "No hay plataformas activas.",
+    "openManager": "Abrir gestor",
+    "footer": "En futuras versiones, Kalimotxo indexará títulos instalados en Wine por tienda."
+  },
+  "downloads": {
+    "title": "Descargas",
+    "subtitle": "Cola de instalación de clientes y parches. Se usará cuando haya varias tiendas activas."
+  },
+  "comingSoon": {
+    "body": "Kalimotxo unificará varias tiendas en un solo launcher. {{store}} llegará en una actualización futura.",
+    "notify": "Avisarme cuando esté disponible",
+    "hint": "Por ahora, usa Battle.net desde Plataformas."
+  },
+  "battlenet": {
+    "heroStart": "Juega en Mac con Battle.net",
+    "heroStartSub": "Un solo botón: Kalimotxo prepara todo y abre Blizzard. La primera vez puede tardar unos minutos.",
+    "heroAlmost": "Casi listo",
+    "heroAlmostSub": "Termina el asistente en la ventana de Battle.net que se abrió en tu Mac.",
+    "heroWizard": "Completa Battle.net en la ventana",
+    "heroWizardSub": "Sigue los pasos del instalador de Blizzard. Cuando acabe, vuelve aquí y pulsa el botón otra vez.",
+    "heroReady": "Battle.net está listo",
+    "heroReadySub": "Abre el cliente, instala juegos y pulsa Jugar en cada título.",
+    "getStarted": "Empezar",
+    "continueSetup": "Continuar instalación",
+    "openBattleNet": "Abrir Battle.net",
+    "working": "Preparando todo…",
+    "workingHint": "No cierres Kalimotxo. macOS puede pedir tu contraseña una vez.",
+    "stuckAt45Hint": "¿Blizzard se quedó al 45%? Usa el botón de abajo: cierra procesos, repara el Agent y reabre el instalador.",
+    "cancelAndRetry": "Cancelar y reintentar instalación",
+    "yourGames": "Tus juegos",
+    "playGame": "Jugar",
+    "advanced": "Opciones avanzadas",
+    "advancedHint": "Solo si algo falla: reparar archivos o desinstalar.",
+    "repair": "Reparar",
+    "repairBottle": "Reparar bottle (Wine limpio)",
+    "repairBottleHint": "Reconcilia el prefix con el Wine activo (Wine 11) sin borrar el cliente. Útil si la ventana no aparece tras varias pruebas.",
+    "uninstall": "Desinstalar",
+    "clientStatus": "Estado del cliente",
+    "statusReady": "Listo para jugar",
+    "statusIncomplete": "Instalación incompleta",
+    "statusWizard": "Completa el asistente Blizzard",
+    "statusNotInstalled": "No instalado",
+    "play": "Jugar",
+    "completeInstall": "Completar instalación",
+    "installWine": "Instalar en Wine",
+    "checkClient": "Comprobar cliente",
+    "compatibleGames": "Juegos compatibles",
+    "errorLabel": "{{action}}: {{message}}"
+  },
+  "taglines": {
+    "battlenet": "Blizzard — WoW, Diablo, Overwatch y más",
+    "epic": "Epic Games Store y exclusivos",
+    "steam": "La biblioteca más grande de PC",
+    "gog": "Juegos DRM-free de GOG.com",
+    "amazon": "Prime Gaming y títulos Amazon"
+  },
+  "availability": {
+    "coming_soon": "Próximamente",
+    "planned": "Planificado"
+  }
+}

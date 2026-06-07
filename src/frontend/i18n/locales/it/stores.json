@@ -1,0 +1,53 @@
+{
+  "platforms": {
+    "myPlatforms": "Le mie piattaforme",
+    "myPlatformsSub": "Collega e avvia i client di gioco",
+    "comingSoon": "In arrivo",
+    "comingSoonSub": "Steam, Epic Games e altro in un unico launcher",
+    "featured": "Piattaforma in evidenza",
+    "runtimeWine": "Runtime Wine"
+  },
+  "library": {
+    "title": "Libreria",
+    "subtitle": "I giochi installati da tutte le piattaforme appariranno qui.",
+    "empty": "Nessuna piattaforma attiva.",
+    "openManager": "Apri gestore",
+    "footer": "Nelle versioni future Kalimotxo indicizzerà i titoli Wine installati per negozio."
+  },
+  "downloads": {
+    "title": "Download",
+    "subtitle": "Coda di installazione client e patch. Usata con più negozi attivi."
+  },
+  "comingSoon": {
+    "body": "Kalimotxo unificherà più negozi in un launcher. {{store}} arriverà in un aggiornamento futuro.",
+    "notify": "Avvisami quando disponibile",
+    "hint": "Per ora usa Battle.net da Piattaforme."
+  },
+  "battlenet": {
+    "clientStatus": "Stato del client",
+    "statusReady": "Pronto per giocare",
+    "statusIncomplete": "Installazione incompleta",
+    "statusWizard": "Completa la procedura Blizzard",
+    "statusNotInstalled": "Non installato",
+    "badgeRuntime": "Runtime Wine",
+    "badgeClient": "Client Blizzard",
+    "badgeDlls": "DLL VC++/UCRT",
+    "play": "Gioca",
+    "completeInstall": "Completa installazione",
+    "installWine": "Installa in Wine",
+    "compatibleGames": "Giochi compatibili",
+    "footer": "Backend Wine dedicato · wined3d nel launcher",
+    "errorLabel": "{{action}}: {{message}}"
+  },
+  "taglines": {
+    "battlenet": "Blizzard — WoW, Diablo, Overwatch e altro",
+    "epic": "Epic Games Store ed esclusivi",
+    "steam": "La più grande libreria PC",
+    "gog": "Giochi DRM-free da GOG.com",
+    "amazon": "Prime Gaming e titoli Amazon"
+  },
+  "availability": {
+    "coming_soon": "In arrivo",
+    "planned": "Pianificato"
+  }
+}

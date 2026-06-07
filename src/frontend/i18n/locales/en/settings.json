@@ -1,0 +1,42 @@
+{
+  "title": "Settings",
+  "subtitle": "Runtime, Wine and system diagnostics",
+  "tabs": {
+    "runtime": "Wine runtime",
+    "wine": "Wine Manager",
+    "system": "System"
+  },
+  "language": {
+    "title": "Language",
+    "description": "Choose the Kalimotxo interface language.",
+    "names": {
+      "es": "Español",
+      "en": "English",
+      "fr": "Français",
+      "it": "Italiano",
+      "pt": "Português",
+      "de": "Deutsch"
+    }
+  },
+  "wine": {
+    "installedTitle": "Installed Wine",
+    "catalogTitle": "Wine catalog (Heroic-style)",
+    "kalimotxoWineTitle": "Kalimotxo Wine engine",
+    "kalimotxoWineHint": "Kalimotxo ships its own Wine layer (like CrossOver, but free). Everything lives under ~/.kalimotxo — you do not need the paid CrossOver app.",
+    "refreshCatalog": "Refresh catalog",
+    "refreshing": "Fetching from GitHub…",
+    "installCrossover": "Install Wine-Crossover (recommended)",
+    "installingDefault": "Installing default Wine…",
+    "install": "Install",
+    "activate": "Activate",
+    "remove": "Remove",
+    "installed": "installed",
+    "inUse": "in use",
+    "active": "Active: {{name}}",
+    "activeNone": "none",
+    "noVersions": "No versions — click Refresh catalog",
+    "bottlesTitle": "Kalimotxo bottles",
+    "kalimotxoBottlesHint": "Wine prefixes Kalimotxo creates (e.g. when installing Battle.net). Not the same as CrossOver bottles above.",
+    "noKalimotxoBottles": "None yet — created when you install Battle.net from the store."
+  }
+}

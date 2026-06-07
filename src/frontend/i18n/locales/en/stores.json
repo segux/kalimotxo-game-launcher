@@ -1,0 +1,73 @@
+{
+  "platforms": {
+    "myPlatforms": "My platforms",
+    "myPlatformsSub": "Connect and launch your game clients",
+    "comingSoon": "Coming soon",
+    "comingSoonSub": "Steam, Epic Games and more in one launcher",
+    "featured": "Featured platform",
+    "runtimeWine": "Wine runtime"
+  },
+  "library": {
+    "title": "Library",
+    "subtitle": "Your installed games from all platforms will appear here.",
+    "empty": "No active platforms.",
+    "openManager": "Open manager",
+    "footer": "In future versions, Kalimotxo will index Wine-installed titles per store."
+  },
+  "downloads": {
+    "title": "Downloads",
+    "subtitle": "Client and patch install queue. Used when multiple stores are active."
+  },
+  "comingSoon": {
+    "body": "Kalimotxo will unify several stores in one launcher. {{store}} will arrive in a future update.",
+    "notify": "Notify me when available",
+    "hint": "For now, use Battle.net from Platforms."
+  },
+  "battlenet": {
+    "heroStart": "Play on Mac with Battle.net",
+    "heroStartSub": "One button: Kalimotxo sets everything up and opens Blizzard. The first run may take a few minutes.",
+    "heroAlmost": "Almost there",
+    "heroAlmostSub": "Finish the setup in the Battle.net window on your Mac.",
+    "heroWizard": "Complete Battle.net in the window",
+    "heroWizardSub": "Follow Blizzard's installer. When done, come back and press the button again.",
+    "heroReady": "Battle.net is ready",
+    "heroReadySub": "Open the client, install games, and press Play on each title.",
+    "getStarted": "Get started",
+    "continueSetup": "Continue setup",
+    "openBattleNet": "Open Battle.net",
+    "working": "Getting everything ready…",
+    "workingHint": "Keep Kalimotxo open. macOS may ask for your password once.",
+    "stuckAt45Hint": "Blizzard stuck at 45%? Use the button below to close processes, repair the Agent, and reopen the installer.",
+    "cancelAndRetry": "Cancel and retry installation",
+    "yourGames": "Your games",
+    "playGame": "Play",
+    "advanced": "Advanced options",
+    "advancedHint": "Only if something breaks: repair files or uninstall.",
+    "repair": "Repair",
+    "repairBottle": "Repair bottle (clean Wine)",
+    "repairBottleHint": "Reconciles the prefix with the active Wine (Wine 11) without deleting the client. Use if the window doesn't appear after repeated attempts.",
+    "uninstall": "Uninstall",
+    "clientStatus": "Client status",
+    "statusReady": "Ready to play",
+    "statusIncomplete": "Incomplete installation",
+    "statusWizard": "Complete the Blizzard wizard",
+    "statusNotInstalled": "Not installed",
+    "play": "Play",
+    "completeInstall": "Complete installation",
+    "installWine": "Install in Wine",
+    "checkClient": "Check client",
+    "compatibleGames": "Compatible games",
+    "errorLabel": "{{action}}: {{message}}"
+  },
+  "taglines": {
+    "battlenet": "Blizzard — WoW, Diablo, Overwatch and more",
+    "epic": "Epic Games Store and exclusives",
+    "steam": "The largest PC library",
+    "gog": "DRM-free games from GOG.com",
+    "amazon": "Prime Gaming and Amazon titles"
+  },
+  "availability": {
+    "coming_soon": "Coming soon",
+    "planned": "Planned"
+  }
+}

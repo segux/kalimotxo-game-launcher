@@ -1,0 +1,83 @@
+{
+  "wizardTitle": "Kalimotxo setup",
+  "wizardSubtitle": "Prepare your Mac for Wine and Battle.net",
+  "steps": {
+    "welcome": "Welcome",
+    "system": "System",
+    "runtime": "Runtime",
+    "battlenet": "Battle.net",
+    "done": "Done"
+  },
+  "welcome": {
+    "title": "Welcome",
+    "body": "Kalimotxo can install almost everything for you: Homebrew (if missing), cabextract, GStreamer, Rosetta, Wine, DXMT and winetricks. macOS may ask for your administrator password once. The first run usually takes several minutes.",
+    "itemSystem": "System tools (Homebrew, cabextract, GStreamer)",
+    "itemRuntime": "Wine runtime in ~/.kalimotxo",
+    "itemBattleNet": "Battle.net install in Wine (Windows games on Mac)",
+    "skip": "Explore without installing",
+    "skipHint": "Open the launcher to browse the UI. Battle.net and Wine will need setup later."
+  },
+  "system": {
+    "title": "System requirements",
+    "homebrew": "Homebrew",
+    "cabextract": "cabextract",
+    "gstreamer": "GStreamer",
+    "rosetta": "Rosetta 2 (recommended)",
+    "xcodeClt": "Xcode Command Line Tools",
+    "xcodeCltHint": "xcode-select --install",
+    "hint": "If you do not have Homebrew, «Install dependencies» or «Prepare all» will try to install it (password required). cabextract can also be downloaded without brew.",
+    "installDeps": "Install dependencies",
+    "logInstalling": "Installing dependencies with Homebrew…"
+  },
+  "runtime": {
+    "title": "Kalimotxo runtime",
+    "body": "Downloads Wine Staging, DXMT and winetricks (~several hundred MB).",
+    "download": "Download runtime",
+    "logDownloading": "Downloading Wine, DXMT and winetricks…"
+  },
+  "battlenet": {
+    "title": "Battle.net in Wine",
+    "body": "Kalimotxo creates the Wine bottle, installs Visual C++/DirectX and opens Blizzard's official installer. When the Wine window appears, sign in and let the client download finish.",
+    "install": "Install Battle.net",
+    "logInstalling": "Installing Battle.net…",
+    "blizzardWizard": "Kalimotxo finished its part. Complete the Blizzard wizard in the Wine window (client download). Then tap «Complete install» or «Next»."
+  },
+  "done": {
+    "title": "All set",
+    "body": "You can install and play Windows titles with Battle.net. Open the client, sign in and download games from your Blizzard library.",
+    "goBattleNet": "Manage Battle.net",
+    "goPlatforms": "Go to Platforms"
+  },
+  "auto": {
+    "title": "Automatic installation",
+    "body": "One click: Rosetta, Homebrew (if needed), cabextract, GStreamer, Wine runtime and automated Battle.net setup. Accept the administrator dialog if macOS shows it.",
+    "button": "Prepare everything automatically",
+    "busy": "Preparing…"
+  },
+  "logTitle": "Installation log",
+  "progress": {
+    "downloadingWine": "Downloading Wine Staging…",
+    "downloadingWinePct": "Downloading Wine…",
+    "extractingWine": "Extracting Wine…",
+    "wineInstalled": "Wine installed",
+    "downloadingDxmt": "Downloading DXMT…",
+    "downloadingDxmtPct": "Downloading DXMT…",
+    "extractingDxmt": "Extracting DXMT…",
+    "dxmtInstalled": "DXMT installed",
+    "installingWinetricks": "Installing winetricks…",
+    "winetricksReady": "winetricks ready",
+    "d3dmetalSearching": "Looking for D3DMetal (CrossOver, GPTK, Homebrew)…",
+    "battlenetStarting": "Preparing Battle.net installation…"
+  },
+  "settings": {
+    "checksTitle": "System checks",
+    "runtimeTitle": "Wine runtime",
+    "runtimeStatus": "Status: {{status}}",
+    "runtimeReady": "Ready",
+    "runtimePending": "Pending",
+    "installAll": "Install all",
+    "installD3dmetal": "D3DMetal (GPTK)",
+    "repairRuntime": "Repair runtime",
+    "loading": "Loading setup…"
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "battlenet": {
+    "name": "Battle.net",
+    "publisher": "Blizzard Entertainment",
+    "exe": "Program Files (x86)/Battle.net/Battle.net Launcher.exe",
+    "installer_url": "https://downloader.battle.net/download/getInstallerForGame?os=win&gameProgram=BATTLENET_APP&version=Live",
+    "backend": "wined3d",
+    "sync": "esync",
+    "windows_version": "win10",
+    "env": {
+      "WINE_SIMULATE_WRITECOPY": "1"
+    },
+    "deps": ["vcrun2019", "vcrun2022", "d3dcompiler_47", "corefonts"],
+    "dll_overrides": {},
+    "notes": "If Battle.net fails to launch after an update, delete the Battle.net.XXXXX folder from Program Files (x86)/Battle.net/",
+    "rating": 4
+  },
+  "diablo4": {
+    "name": "Diablo IV",
+    "publisher": "Blizzard Entertainment",
+    "exe": "Program Files (x86)/Diablo IV/Diablo IV.exe",
+    "backend": "d3dmetal",
+    "sync": "esync",
+    "windows_version": "win10",
+    "env": {},
+    "deps": ["vcrun2019"],
+    "dll_overrides": {
+      "d3d11": "native",
+      "d3d12": "native",
+      "dxgi": "native"
+    },
+    "notes": "Requires D3DMetal for DirectX 12 support. Approximately 80GB disk space needed. Disable ray tracing for better performance.",
+    "rating": 4
+  },
+  "wow": {
+    "name": "World of Warcraft",
+    "publisher": "Blizzard Entertainment",
+    "exe": "Program Files (x86)/World of Warcraft/_retail_/Wow.exe",
+    "backend": "dxmt",
+    "sync": "msync",
+    "windows_version": "win10",
+    "env": {},
+    "deps": ["vcrun2019"],
+    "dll_overrides": {
+      "d3d11": "native",
+      "dxgi": "native"
+    },
+    "notes": "Use DirectX 11 mode in game settings. Disable ray tracing. MSync recommended over ESync for this title.",
+    "rating": 5
+  },
+  "overwatch2": {
+    "name": "Overwatch 2",
+    "publisher": "Blizzard Entertainment",
+    "exe": "Program Files (x86)/Overwatch/_retail_/Overwatch.exe",
+    "backend": "dxmt",
+    "sync": "esync",
+    "windows_version": "win10",
+    "env": {},
+    "deps": ["vcrun2019"],
+    "dll_overrides": {
+      "d3d11": "native",
+      "dxgi": "native"
+    },
+    "notes": "Competitive play may trigger anti-cheat. Use DirectX 11 render mode.",
+    "rating": 3
+  },
+  "hearthstone": {
+    "name": "Hearthstone",
+    "publisher": "Blizzard Entertainment",
+    "exe": "Program Files (x86)/Hearthstone/Hearthstone.exe",
+    "backend": "dxmt",
+    "sync": "esync",
+    "windows_version": "win10",
+    "env": {},
+    "deps": ["vcrun2019"],
+    "dll_overrides": {
+      "d3d11": "native",
+      "dxgi": "native"
+    },
+    "notes": "Runs perfectly. Lightweight game with no performance issues.",
+    "rating": 5
+  },
+  "diablo2r": {
+    "name": "Diablo II: Resurrected",
+    "publisher": "Blizzard Entertainment",
+    "exe": "Program Files (x86)/Diablo II Resurrected/D2R.exe",
+    "backend": "d3dmetal",
+    "sync": "esync",
+    "windows_version": "win10",
+    "env": {},
+    "deps": ["vcrun2019"],
+    "dll_overrides": {
+      "d3d11": "native",
+      "d3d12": "native",
+      "dxgi": "native"
+    },
+    "notes": "Uses DirectX 12 renderer. D3DMetal required.",
+    "rating": 4
+  },
+  "starcraft2": {
+    "name": "StarCraft II",
+    "publisher": "Blizzard Entertainment",
+    "exe": "Program Files (x86)/StarCraft II/SC2_x64.exe",
+    "backend": "dxmt",
+    "sync": "esync",
+    "windows_version": "win10",
+    "env": {},
+    "deps": ["vcrun2019"],
+    "dll_overrides": {
+      "d3d11": "native",
+      "dxgi": "native"
+    },
+    "notes": "Runs very well. Set shader quality to medium for best FPS.",
+    "rating": 5
+  },
+  "warcraft3": {
+    "name": "Warcraft III: Reforged",
+    "publisher": "Blizzard Entertainment",
+    "exe": "Program Files (x86)/Warcraft III/_retail_/Warcraft III.exe",
+    "backend": "dxmt",
+    "sync": "esync",
+    "windows_version": "win10",
+    "env": {},
+    "deps": ["vcrun2019", "d3dcompiler_47"],
+    "dll_overrides": {
+      "d3d11": "native",
+      "dxgi": "native"
+    },
+    "notes": "Classic graphics mode works best. Reforged graphics may have rendering issues.",
+    "rating": 3
+  },
+  "cod_mw": {
+    "name": "Call of Duty: Modern Warfare",
+    "publisher": "Activision",
+    "exe": "Program Files (x86)/Call of Duty/_retail_/cod.exe",
+    "backend": "d3dmetal",
+    "sync": "esync",
+    "windows_version": "win10",
+    "env": {},
+    "deps": ["vcrun2019"],
+    "dll_overrides": {
+      "d3d11": "native",
+      "d3d12": "native",
+      "dxgi": "native"
+    },
+    "notes": "WARNING: Ricochet anti-cheat does NOT work under Wine. Single-player/campaign only.",
+    "rating": 2
+  }
+}

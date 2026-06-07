@@ -1,0 +1,68 @@
+{
+  "wizardTitle": "Kalimotxo-Einrichtung",
+  "wizardSubtitle": "Mac für Wine und Battle.net vorbereiten",
+  "steps": {
+    "welcome": "Willkommen",
+    "system": "System",
+    "runtime": "Runtime",
+    "battlenet": "Battle.net",
+    "done": "Fertig"
+  },
+  "welcome": {
+    "title": "Willkommen",
+    "body": "Kalimotxo kann fast alles installieren: Homebrew (falls fehlend), cabextract, GStreamer, Rosetta, Wine, DXMT und winetricks. macOS kann einmal nach dem Administratorpasswort fragen. Der erste Lauf dauert oft mehrere Minuten.",
+    "itemSystem": "Systemtools (Homebrew, cabextract, GStreamer)",
+    "itemRuntime": "Wine-Runtime in ~/.kalimotxo",
+    "itemBattleNet": "Danach Battle.net unter Plattformen installieren",
+    "skip": "Ohne Installation erkunden",
+    "skipHint": "Launcher öffnen und die Oberfläche ansehen. Battle.net und Wine brauchen später das Setup."
+  },
+  "system": {
+    "title": "Systemvoraussetzungen",
+    "homebrew": "Homebrew",
+    "cabextract": "cabextract",
+    "gstreamer": "GStreamer",
+    "rosetta": "Rosetta 2 (empfohlen)",
+    "hint": "Ohne Homebrew versuchen «Abhängigkeiten installieren» oder «Alles vorbereiten» die Installation (Passwort nötig). cabextract kann auch ohne brew geladen werden.",
+    "installDeps": "Abhängigkeiten installieren",
+    "logInstalling": "Abhängigkeiten mit Homebrew werden installiert…"
+  },
+  "runtime": {
+    "title": "Kalimotxo-Runtime",
+    "body": "Lädt Wine Staging, DXMT und winetricks herunter (~mehrere hundert MB).",
+    "download": "Runtime herunterladen",
+    "logDownloading": "Wine, DXMT und winetricks werden heruntergeladen…"
+  },
+  "done": {
+    "title": "Alles bereit",
+    "body": "Kalimotxo kann Battle.net installieren und starten. Gehen Sie zu Plattformen und öffnen Sie Verwalten bei Battle.net.",
+    "goPlatforms": "Zu Plattformen"
+  },
+  "auto": {
+    "title": "Automatische Installation",
+    "body": "Ein Klick: Rosetta, Homebrew (falls nötig), cabextract, GStreamer und Wine-Runtime. Administrator-Dialog von macOS bestätigen.",
+    "button": "Alles automatisch vorbereiten",
+    "busy": "Vorbereitung…"
+  },
+  "logTitle": "Installationsprotokoll",
+  "progress": {
+    "downloadingWine": "Wine Staging wird heruntergeladen…",
+    "downloadingWinePct": "Wine wird heruntergeladen…",
+    "extractingWine": "Wine wird entpackt…",
+    "wineInstalled": "Wine installiert",
+    "downloadingDxmt": "DXMT wird heruntergeladen…",
+    "downloadingDxmtPct": "DXMT wird heruntergeladen…",
+    "dxmtInstalled": "DXMT installiert",
+    "installingWinetricks": "winetricks wird installiert…",
+    "winetricksReady": "winetricks bereit"
+  },
+  "settings": {
+    "checksTitle": "Systemprüfungen",
+    "runtimeTitle": "Wine-Runtime",
+    "runtimeStatus": "Status: {{status}}",
+    "runtimeReady": "Bereit",
+    "runtimePending": "Ausstehend",
+    "installAll": "Alles installieren",
+    "loading": "Setup wird geladen…"
+  }
+}
