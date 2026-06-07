@@ -11,10 +11,16 @@ import {
 } from '../../compatibility/catalog'
 
 export type { BlizzardGameId }
-import { runExe, stopWineProcesses } from '../../launcher/wineRunner'
-import { applyGraphicsBackend, type GraphicsBackendId } from '../../wine/graphicsBackend'
+import { buildBattleNetLaunchEnv, runExe, stopWineProcesses } from '../../launcher/wineRunner'
+import { applyGraphicsBackend, applyGraphicsEnv, type GraphicsBackendId } from '../../wine/graphicsBackend'
+import { mergeDllOverrides } from '../../wine/wineEnv'
 import { ensureD3dmetal, ensureD3dmetalForDx12Games } from '../../wine/d3dmetalSetup'
+import { getBottlePath } from '../../bottle'
 import { prepareBattleNetWineLaunch } from '../../wine/prepareLaunch'
+import { resolveBattleNetWineInstallation } from '../../wine/compatibilityLayers'
+import { ensureBattleNetWineRuntimeLibs } from '../../wine/wineRuntimeLibs'
+import { startAgentPortBridge } from './agentPortBridge'
+import { markGameManaged, markPidManaged } from './gameWatcher'
 import { BATTLENET_BOTTLE, BATTLENET_LAUNCHER_BACKEND } from './constants'
 import { ensureLaunchDependencies } from './deps'
 import { isBattleNetInstalled } from './client'
@@ -54,13 +60,13 @@ async function applyGameProfileToBottle(
   log?: (m: string) => void
 ): Promise<[boolean, string]> {
   const profile = getGameProfile(profileId)
-  if (!profile) return [false, `Perfil desconocido: ${profileId}`]
+  if (!profile) return [false, `Unknown profile: ${profileId}`]
 
   const backend = profile.backend as GraphicsBackendId
   if (backend === 'd3dmetal') {
     let [d3dOk, d3dMsg] = ensureD3dmetalForDx12Games()
     if (!d3dOk) {
-      log?.('Instalando D3DMetal automáticamente…')
+      log?.('Installing D3DMetal automatically...')
       ;[d3dOk, d3dMsg] = await ensureD3dmetal({ onLog: log })
     }
     if (!d3dOk) return [false, d3dMsg]
@@ -89,7 +95,88 @@ async function applyGameProfileToBottle(
   return [true, gfxMsg]
 }
 
-/** Lanza un juego Blizzard instalado en la botella Battle.net (perfil CrossOver-style). */
+/**
+ * Build a launch environment for a specific game profile, bypassing the global
+ * bottle state (which may have been reset to wined3d by prepareBottleForLauncher).
+ * Inspired by Heroic Game Launcher: per-game env, not per-bottle mutation.
+ */
+function buildGameLaunchEnv(
+  bottleName: string,
+  profile: ReturnType<typeof getGameProfile>
+): NodeJS.ProcessEnv {
+  if (!profile) return buildBattleNetLaunchEnv(bottleName, { gameLaunch: true })
+
+  // Start with the standard Battle.net launch environment
+  const env = buildBattleNetLaunchEnv(bottleName, { gameLaunch: true })
+
+  // Apply the graphics backend from the profile directly (do not trust bottle.json)
+  applyGraphicsEnv(env, profile.backend as GraphicsBackendId)
+
+  // applyGraphicsEnv uses the global D3DMETAL_DIR for d3dmetal. Prefer the
+  // local copy inside the bottle if it exists (copied by applyGraphicsBackend).
+  if (profile.backend === 'd3dmetal') {
+    const localD3dmetal = join(getBottlePath(bottleName), 'd3dmetal')
+    const d3dmetalFw = join(localD3dmetal, 'D3DMetal.framework')
+    const d3dshared = join(localD3dmetal, 'libd3dshared.dylib')
+    if (existsSync(d3dmetalFw)) {
+      env.D3DMETAL = '1'
+      env.DYLD_FRAMEWORK_PATH = localD3dmetal
+      env.DYLD_LIBRARY_PATH = localD3dmetal
+      env.CX_ACTIVE_GRAPHICS_BACKEND = 'd3dmetal'
+      if (existsSync(d3dshared)) {
+        env.CX_APPLEGPTK_LIBD3DSHARED_PATH = d3dshared
+      }
+    }
+  }
+
+  // Apply DLL overrides from the profile directly.
+  // CRITICAL: D3DMetal requires Wine builtins (not native) for d3d11/d3d12/dxgi.
+  // The compatibility.json profiles mistakenly set them to native (copied from
+  // DXMT profiles). We override them here to builtin for d3dmetal.
+  if (Object.keys(profile.dll_overrides).length > 0) {
+    const overrides = Object.entries(profile.dll_overrides).map(
+      ([dll, mode]) => {
+        if (
+          profile.backend === 'd3dmetal' &&
+          ['d3d11', 'd3d12', 'dxgi', 'd3d10core'].includes(dll)
+        ) {
+          return `${dll}=builtin`
+        }
+        return `${dll}=${mode}`
+      }
+    )
+    env.WINEDLLOVERRIDES = mergeDllOverrides(env.WINEDLLOVERRIDES, overrides)
+  }
+
+  // Apply env vars from the profile
+  for (const [k, v] of Object.entries(profile.env)) {
+    env[k] = v
+  }
+
+  // Apply sync mode from the profile
+  if (profile.sync === 'esync') {
+    env.WINEESYNC = '1'
+    delete env.WINEMSYNC
+  } else if (profile.sync === 'msync') {
+    env.WINEMSYNC = '1'
+    delete env.WINEESYNC
+  } else {
+    delete env.WINEESYNC
+    delete env.WINEMSYNC
+  }
+
+  // macOS D3DMetal fix: Heroic enables both msync + esync for toolkit wines
+  if (profile.backend === 'd3dmetal') {
+    env.WINEMSYNC = '1'
+    env.WINEESYNC = '1'
+  } else if (profile.backend === 'dxmt') {
+    env.WINEMSYNC = '1'
+  }
+
+  return env
+}
+
+/** Launches a Blizzard game installed in the Battle.net bottle (CrossOver-style profile). */
 export async function launchBlizzardGame(
   gameId: BlizzardGameId
 ): Promise<{ success: boolean; message: string }> {
@@ -103,7 +190,7 @@ export async function launchBlizzardGame(
     const opened = await play()
     if (!opened.success) return opened
     if (!isBattleNetInstalled()) {
-      return { success: false, message: 'Abre Battle.net primero con el botón principal' }
+      return { success: false, message: 'Open Battle.net first using the main button' }
     }
   }
 
@@ -111,7 +198,7 @@ export async function launchBlizzardGame(
   if (profile?.backend === 'd3dmetal') {
     const { isD3dmetalInstalled } = await import('../../setup/runtimePaths')
     if (!isD3dmetalInstalled()) {
-      log('Instalando gráficos para este juego…')
+      log('Installing graphics layer for this game...')
       const { ensureD3dmetal } = await import('../../wine/d3dmetalSetup')
       await ensureD3dmetal({ onLog: log })
     }
@@ -122,7 +209,7 @@ export async function launchBlizzardGame(
     const profile = getGameProfile(gameId)
     return {
       success: false,
-      message: `${profile?.name ?? gameId} no está instalado. Instálalo desde Battle.net.`
+      message: `${profile?.name ?? gameId} is not installed. Install it from Battle.net.`
     }
   }
 
@@ -135,24 +222,55 @@ export async function launchBlizzardGame(
 
   stopWineProcesses(BATTLENET_BOTTLE, { wait: false })
 
-  const [profileOk, profileMsg] = await applyGameProfileToBottle(BATTLENET_BOTTLE, gameId, log)
+  // Persist profile to bottle config for UI display (secondary — env is built
+  // directly from profile below to avoid prepareBottleForLauncher races).
+  const [, profileMsg] = await applyGameProfileToBottle(BATTLENET_BOTTLE, gameId, log)
   log(profileMsg)
-  if (!profileOk) return { success: false, message: profileMsg }
 
   const prep = prepareBattleNetWineLaunch(logPath)
   if (!prep.ok) return { success: false, message: prep.message }
 
+  // macOS strips DYLD_* from Wine child processes -> MoltenVK/gnutls do not
+  // load via DYLD_FALLBACK. Copying them into lib/wine/x86_64-unix makes them
+  // load via @loader_path (GPU + TLS). See wineRuntimeLibs.ts.
+  const installation = resolveBattleNetWineInstallation()
+  try {
+    ensureBattleNetWineRuntimeLibs(installation, log)
+  } catch (e) {
+    log(`Warning: could not prepare runtime libs: ${String(e)}`)
+  }
+
+  // Bridge 1120 -> Agent's real port (Agent.dat). Without it the client gets
+  // CURL error=7 / BLZBNTBNA00000005. See agentPortBridge.ts.
+  startAgentPortBridge(BATTLENET_BOTTLE)
+
+  // Build the env directly from the game profile (Heroic-style).
+  // Do NOT rely on bottle.json being in the right state.
+  const gameEnv = buildGameLaunchEnv(BATTLENET_BOTTLE, profile)
+  // Mark this process as Kalimotxo-managed so the gameWatcher ignores it
+  gameEnv.KALIMOTXO_MANAGED = '1'
+
   const exeName = exe.split(/[/\\]/).pop() ?? 'game.exe'
-  log(`Iniciando ${exeName} (${gameId})…`)
-  runExe(BATTLENET_BOTTLE, exe, { battleNetEnv: true, gameLaunch: true, logPath })
+  log(`Launching ${exeName} (${gameId}) with backend ${profile?.backend ?? 'default'}...`)
+  log(`Overrides: ${gameEnv.WINEDLLOVERRIDES ?? '(none)'}`)
+  const proc = runExe(BATTLENET_BOTTLE, exe, { battleNetEnv: true, gameLaunch: true, logPath, env: gameEnv })
+
+  // Prevent the watcher from killing this newly launched game:
+  // - markGameManaged: cooldown by gameId (the Wine loader PID != D2R.exe child PID)
+  // - markPidManaged: PID-based guard as a secondary safety net
+  markGameManaged(gameId)
+  if (proc.pid) {
+    log(`Marking pid ${proc.pid} as Kalimotxo-managed`)
+    markPidManaged(proc.pid)
+  }
 
   return {
     success: true,
-    message: `${getGameProfile(gameId)?.name ?? gameId} en ejecución. Tras jugar, usa «Abrir Battle.net» para volver al modo launcher. Log: ${logPath}`
+    message: `${getGameProfile(gameId)?.name ?? gameId} is running. After playing, click Open Battle.net to return to launcher mode. Log: ${logPath}`
   }
 }
 
-/** Restaura capa wined3d para el cliente Battle.net (como CrossOver al volver al launcher). */
+/** Restores the wined3d layer for the Battle.net client (like CrossOver when returning to launcher). */
 export function restoreBattleNetLauncherGraphics(
   bottleName = BATTLENET_BOTTLE
 ): [boolean, string] {
