@@ -52,7 +52,10 @@ export default function LauncherLayout() {
 
       <div className="no-drag flex min-w-0 flex-1 flex-col">
         <header className="flex h-14 shrink-0 items-center gap-6 border-b border-white/[0.06] bg-kal-bg-elevated/80 px-6 backdrop-blur-md">
-          <span className="text-sm font-semibold tracking-wide text-white/90">{t('appName')}</span>
+          <div className="flex flex-col leading-tight">
+            <span className="text-sm font-semibold tracking-wide text-white/90">{t('appName')}</span>
+            <span className="text-[10px] text-white/35 tracking-wide">{t('appTagline')}</span>
+          </div>
           {!isStoreDetail && (
             <nav className="flex gap-1">
               {topTabs.map(({ to, label, end }) => (

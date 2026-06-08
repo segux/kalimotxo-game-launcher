@@ -1,6 +1,6 @@
 {
   "wizardTitle": "Configuration de Kalimotxo",
-  "wizardSubtitle": "Préparez votre Mac pour Wine et Battle.net",
+  "wizardSubtitle": "Jeux Windows sur Apple Silicon",
   "steps": {
     "welcome": "Bienvenue",
     "system": "Système",
