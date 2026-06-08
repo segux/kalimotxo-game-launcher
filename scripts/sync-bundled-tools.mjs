@@ -4,6 +4,11 @@ import { mkdirSync, writeFileSync, chmodSync } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 
+if (process.env.CI) {
+  console.log('CI environment detected — skipping winetricks download')
+  process.exit(0)
+}
+
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const destDir = join(root, 'resources', 'bundled')
 const dest = join(destDir, 'winetricks')
