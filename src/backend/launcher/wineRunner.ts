@@ -197,6 +197,16 @@ export function applyBattleNetWindowsRegistry(
     )
   }
 
+  // wined3d global: use Vulkan (MoltenVK) instead of OpenGL so that DxDiag's
+  // DDraw init does not crash with GL_INVALID_FRAMEBUFFER_OPERATION on macOS.
+  // Agent.exe overrides this to gdi (software) so the background service never
+  // touches the GPU.
+  const globalD3dKey = 'HKCU\\Software\\Wine\\Direct3D'
+  spawnSync(wine, ['reg', 'add', globalD3dKey, '/v', 'renderer', '/t', 'REG_SZ', '/d', 'vulkan', '/f'], {
+    env,
+    timeout: 15_000
+  })
+
   const agentD3dKey = 'HKCU\\Software\\Wine\\AppDefaults\\Agent.exe\\Direct3D'
   spawnSync(wine, ['reg', 'add', agentD3dKey, '/v', 'renderer', '/t', 'REG_SZ', '/d', 'gdi', '/f'], {
     env,

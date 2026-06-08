@@ -58,10 +58,14 @@ export function BattleNetPanel() {
     const off3 = window.api.on('battleNetInstallFinished', () => {
       void refresh()
     })
+    const off4 = window.api.on('gameLaunchError', ({ gameName, message }) => {
+      setError(`${gameName}: ${message}`)
+    })
     return () => {
       off1()
       off2()
       off3()
+      off4()
     }
   }, [refresh])
 

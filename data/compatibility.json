@@ -38,8 +38,8 @@
     "env": {},
     "deps": ["vcrun2019"],
     "dll_overrides": {
-      "d3d11": "native",
-      "dxgi": "native"
+      "d3d11": "builtin",
+      "dxgi": "builtin"
     },
     "notes": "Use DirectX 11 mode in game settings. Disable ray tracing. MSync recommended over ESync for this title.",
     "rating": 5
@@ -54,8 +54,8 @@
     "env": {},
     "deps": ["vcrun2019"],
     "dll_overrides": {
-      "d3d11": "native",
-      "dxgi": "native"
+      "d3d11": "builtin",
+      "dxgi": "builtin"
     },
     "notes": "Competitive play may trigger anti-cheat. Use DirectX 11 render mode.",
     "rating": 3
@@ -70,8 +70,8 @@
     "env": {},
     "deps": ["vcrun2019"],
     "dll_overrides": {
-      "d3d11": "native",
-      "dxgi": "native"
+      "d3d11": "builtin",
+      "dxgi": "builtin"
     },
     "notes": "Runs perfectly. Lightweight game with no performance issues.",
     "rating": 5
@@ -107,8 +107,8 @@
     "env": {},
     "deps": ["vcrun2019"],
     "dll_overrides": {
-      "d3d11": "native",
-      "dxgi": "native"
+      "d3d11": "builtin",
+      "dxgi": "builtin"
     },
     "notes": "Runs very well. Set shader quality to medium for best FPS.",
     "rating": 5
@@ -123,8 +123,8 @@
     "env": {},
     "deps": ["vcrun2019", "d3dcompiler_47"],
     "dll_overrides": {
-      "d3d11": "native",
-      "dxgi": "native"
+      "d3d11": "builtin",
+      "dxgi": "builtin"
     },
     "notes": "Classic graphics mode works best. Reforged graphics may have rendering issues.",
     "rating": 3

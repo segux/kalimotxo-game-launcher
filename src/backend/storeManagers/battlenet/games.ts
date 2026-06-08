@@ -1,4 +1,4 @@
-import { appendFileSync, existsSync, mkdirSync, writeFileSync } from 'fs'
+import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs'
 import { join } from 'path'
 
 import { getBottleConfig, saveBottleConfig } from '../../bottle'
@@ -23,6 +23,7 @@ import { startAgentPortBridge } from './agentPortBridge'
 import { markGameManaged, markPidManaged } from './gameWatcher'
 import { BATTLENET_BOTTLE, BATTLENET_LAUNCHER_BACKEND } from './constants'
 import { ensureLaunchDependencies } from './deps'
+import { sendFrontendMessage } from '../../ipc'
 import { isBattleNetInstalled } from './client'
 import { prepareBottleForLauncher } from './launcherPrep'
 
@@ -63,6 +64,9 @@ async function applyGameProfileToBottle(
   if (!profile) return [false, `Unknown profile: ${profileId}`]
 
   const backend = profile.backend as GraphicsBackendId
+
+  // D3DMetal (DX12) games: ensure the framework is available before launch.
+  // DXMT games load their DLLs via WINEDLLPATH — no file copy needed here.
   if (backend === 'd3dmetal') {
     let [d3dOk, d3dMsg] = ensureD3dmetalForDx12Games()
     if (!d3dOk) {
@@ -70,29 +74,19 @@ async function applyGameProfileToBottle(
       ;[d3dOk, d3dMsg] = await ensureD3dmetal({ onLog: log })
     }
     if (!d3dOk) return [false, d3dMsg]
+    // Copy D3DMetal framework into the bottle so DYLD_FRAMEWORK_PATH can find it.
+    const [copyOk, copyMsg] = applyGraphicsBackend(bottleName, backend)
+    if (!copyOk) return [false, copyMsg]
+    return [true, copyMsg]
   }
 
-  const [gfxOk, gfxMsg] = applyGraphicsBackend(bottleName, backend)
-  if (!gfxOk) return [false, gfxMsg]
-
+  // Persist the profile's sync mode and env vars to bottle config for UI display.
+  // The launch environment is built directly from the profile in buildGameLaunchEnv,
+  // so this is informational only — it does not affect what the game process sees.
   const cfg = getBottleConfig(bottleName)
   cfg.sync_mode = profile.sync === 'msync' ? 'msync' : profile.sync === 'esync' ? 'esync' : 'none'
-  cfg.env_vars = { ...cfg.env_vars, ...profile.env }
-  for (const [dll, mode] of Object.entries(profile.dll_overrides)) {
-    cfg.dll_overrides[dll] = mode
-  }
-  if (profile.sync === 'esync') {
-    cfg.env_vars.WINEESYNC = '1'
-    delete cfg.env_vars.WINEMSYNC
-  } else if (profile.sync === 'msync') {
-    cfg.env_vars.WINEMSYNC = '1'
-    delete cfg.env_vars.WINEESYNC
-  } else {
-    delete cfg.env_vars.WINEESYNC
-    delete cfg.env_vars.WINEMSYNC
-  }
   saveBottleConfig(bottleName, cfg)
-  return [true, gfxMsg]
+  return [true, `Profile applied: ${profileId}`]
 }
 
 /**
@@ -266,10 +260,62 @@ export async function launchBlizzardGame(
     markPidManaged(proc.pid)
   }
 
+  const blzLogPath = join(
+    getBottlePath(BATTLENET_BOTTLE),
+    'drive_c',
+    exe.split(/[/\\]/).slice(0, -1).join('/'),
+    'blz-log.txt'
+  )
+  watchForEarlyExit(proc, gameId, profile?.name ?? gameId, blzLogPath)
+
   return {
     success: true,
     message: `${getGameProfile(gameId)?.name ?? gameId} is running. After playing, click Open Battle.net to return to launcher mode. Log: ${logPath}`
   }
+}
+
+const KNOWN_CRASH_PATTERNS: Array<{ pattern: RegExp; message: string }> = [
+  {
+    pattern: /LoadLibrary.*dxgi.*Failed|failed to create Prism/i,
+    message: 'Graphics system failed to initialize. Try reinstalling the game from Battle.net.'
+  },
+  {
+    pattern: /Failed to initialize graphics system/i,
+    message: 'Graphics system failed. Make sure your macOS and Kalimotxo are up to date.'
+  },
+  {
+    pattern: /not.*installed|game.*not.*found/i,
+    message: 'Game files not found. Reinstall the game from Battle.net.'
+  }
+]
+
+function friendlyErrorFromLog(blzLogPath: string): string | null {
+  try {
+    const text = readFileSync(blzLogPath, 'utf-8').slice(-4000)
+    for (const { pattern, message } of KNOWN_CRASH_PATTERNS) {
+      if (pattern.test(text)) return message
+    }
+  } catch {
+    /* log not available */
+  }
+  return null
+}
+
+function watchForEarlyExit(
+  proc: ReturnType<typeof runExe>,
+  gameId: string,
+  gameName: string,
+  blzLogPath: string,
+  windowMs = 15_000
+): void {
+  const timer = setTimeout(() => proc.off('exit', onExit), windowMs)
+  function onExit(code: number | null): void {
+    clearTimeout(timer)
+    if (code === 0 || code === null) return
+    const detail = friendlyErrorFromLog(blzLogPath) ?? 'The game closed unexpectedly.'
+    sendFrontendMessage('gameLaunchError', { gameId, gameName, message: detail })
+  }
+  proc.once('exit', onExit)
 }
 
 /** Restores the wined3d layer for the Battle.net client (like CrossOver when returning to launcher). */

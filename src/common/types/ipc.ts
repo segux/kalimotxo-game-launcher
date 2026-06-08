@@ -105,4 +105,5 @@ export interface FrontendMessages {
     message: string
   }) => void
   wineInstallFinished: (result: OpResult) => void
+  gameLaunchError: (payload: { gameId: string; gameName: string; message: string }) => void
 }
