@@ -6,16 +6,7 @@ import { execSync } from 'child_process'
 export const APP_NAME = 'Kalimotxo'
 export const APP_VERSION = '0.1.0'
 
-const LEGACY_DATA_DIR = join(homedir(), '.macbattlenet')
-const DEFAULT_DATA_DIR = join(homedir(), '.kalimotxo')
-
-export function resolveDataDir(): string {
-  if (existsSync(DEFAULT_DATA_DIR)) return DEFAULT_DATA_DIR
-  if (existsSync(LEGACY_DATA_DIR)) return LEGACY_DATA_DIR
-  return DEFAULT_DATA_DIR
-}
-
-export const DATA_DIR = resolveDataDir()
+export const DATA_DIR = join(homedir(), '.kalimotxo')
 export const RUNTIME_DIR = join(DATA_DIR, 'runtime')
 export const BOTTLES_DIR = join(DATA_DIR, 'bottles')
 export const CACHE_DIR = join(DATA_DIR, 'cache')

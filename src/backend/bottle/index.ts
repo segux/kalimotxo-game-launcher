@@ -5,7 +5,6 @@ import { BOTTLES_DIR } from '../config/paths'
 import { findWine64 } from '../setup/runtime'
 
 export const CONFIG_FILENAME = '.kalimotxo.json'
-const LEGACY_CONFIG = '.macbattlenet.json'
 
 export interface BottleConfig {
   name: string
@@ -27,10 +26,7 @@ export function getBottlePath(name: string): string {
 
 function configPath(bottlePath: string): string | null {
   const kal = join(bottlePath, CONFIG_FILENAME)
-  if (existsSync(kal)) return kal
-  const leg = join(bottlePath, LEGACY_CONFIG)
-  if (existsSync(leg)) return leg
-  return null
+  return existsSync(kal) ? kal : null
 }
 
 export function getBottleConfig(name: string): BottleConfig {

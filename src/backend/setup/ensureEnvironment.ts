@@ -85,7 +85,7 @@ export async function ensureToolsForWinetricks(
   return [true, 'System tools ready']
 }
 
-/** Wine, DXMT, winetricks in ~/.kalimotxo or ~/.macbattlenet. */
+/** Wine, DXMT, winetricks in ~/.kalimotxo. */
 export async function ensureRuntimeReady(
   log: (m: string) => void = logInfo
 ): Promise<[boolean, string]> {

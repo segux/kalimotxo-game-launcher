@@ -17,7 +17,7 @@ Documento de referencia para el trabajo de depuración de Kalimotxo con Battle.n
 | Elemento | Valor habitual en pruebas |
 |----------|---------------------------|
 | App | Kalimotxo (Electron + TypeScript) |
-| Datos | `~/.macbattlenet` o `~/.kalimotxo` |
+| Datos | `~/.kalimotxo` |
 | Bottle | `bottles/Battle.net` (`WINEARCH=win64`) |
 | Cliente | `Battle.net.exe` (PE32, 32 bits) + CEF (`libcef.dll`) |
 | Agente | `Agent.exe` (instalación/actualizaciones) |
@@ -231,7 +231,7 @@ Ya descrito en [d3dmetal-and-performance.md](d3dmetal-and-performance.md): Diabl
 
 ## Sesión 2026-06-04 (tarde): cadena de causa raíz del arranque del cliente
 
-Reproduciendo el stack D4Mac (**Wine 11.0 CodeWeavers + DXMT v0.72 + D3DMetal + MoltenVK**) directamente sobre el bottle `Battle.net` ya instalado, se aisló por fin **por qué el cliente arranca pero no muestra ventana**, y se resolvieron dos de los tres bloqueos. Cada paso está verificado con logs (`~/.macbattlenet/logs/bnet-*.log`, `libcef-*.log`, `Agent-*.log`).
+Reproduciendo el stack D4Mac (**Wine 11.0 CodeWeavers + DXMT v0.72 + D3DMetal + MoltenVK**) directamente sobre el bottle `Battle.net` ya instalado, se aisló por fin **por qué el cliente arranca pero no muestra ventana**, y se resolvieron dos de los tres bloqueos. Cada paso está verificado con logs (`~/.kalimotxo/logs/bnet-*.log`, `libcef-*.log`, `Agent-*.log`).
 
 ### Bloqueo 1 — GPU/ANGLE (RESUELTO) → la ventana ya se crea
 
@@ -257,7 +257,7 @@ Reproduciendo el stack D4Mac (**Wine 11.0 CodeWeavers + DXMT v0.72 + D3DMetal + 
 
 ### Nota de entorno detectada
 
-`resolveDataDir()` devuelve `~/.kalimotxo` en cuanto ese directorio existe, pero **todos los datos reales (bottles, runtime, wine) están en `~/.macbattlenet`**. Apareció un `~/.kalimotxo/cache` (extracción de `D4Mac-0.2.2.zip`) que ahora hace que la app mire en el sitio equivocado y crea que no hay runtime (2 tests de `runtimePaths` fallan por esto). **Acción recomendada:** consolidar en un único directorio de datos (mover/retirar `~/.kalimotxo` o migrar todo a él).
+`resolveDataDir()` devuelve `~/.kalimotxo` en cuanto ese directorio existe, pero **todos los datos reales (bottles, runtime, wine) están en `~/.kalimotxo`**. Apareció un `~/.kalimotxo/cache` (extracción de `D4Mac-0.2.2.zip`) que ahora hace que la app mire en el sitio equivocado y crea que no hay runtime (2 tests de `runtimePaths` fallan por esto). **Acción recomendada:** consolidar en un único directorio de datos (mover/retirar `~/.kalimotxo` o migrar todo a él).
 
 ### Requisito de entorno: hardened runtime + DYLD
 
@@ -269,13 +269,13 @@ El arranque correcto (ventana 362×631, MoltenVK con `VK_KHR_win32_surface`, TLS
 
 ### Cómo reproducir el arranque (script de validación)
 
-`~/.macbattlenet/logs/d4mac-launch-test.sh` exporta el stack D4Mac (Wine 11 + DXMT v0.72 + D3DMetal + MoltenVK + gnutls de Crossover, `vulkan-1=b`) y lanza con `--use-angle=vulkan --disable-gpu-compositing`. Verifica con `swift listwin.swift` (ventanas reales) y `screencapture`.
+`~/.kalimotxo/logs/d4mac-launch-test.sh` exporta el stack D4Mac (Wine 11 + DXMT v0.72 + D3DMetal + MoltenVK + gnutls de Crossover, `vulkan-1=b`) y lanza con `--use-angle=vulkan --disable-gpu-compositing`. Verifica con `swift listwin.swift` (ventanas reales) y `screencapture`.
 
 ---
 
 ## Sesión 2026-06-04 (noche): CAUSA RAÍZ DEFINITIVA — los 3 bloqueos resueltos ✅
 
-Reproduciendo el arranque sobre el runtime **registrado** `Wine-BattleNet-11.0` (no el `.app` de D4Mac, que ya no existe en disco) tras un reinicio limpio, se aisló por fin la causa raíz real y se llegó a **login funcional + Agent conectado**. Verificado con logs frescos (`~/.macbattlenet/logs/diag-*`, `battle.net-*.log`, `Agent-*.log`), `lsof` y `+winsock`/`+secur32`.
+Reproduciendo el arranque sobre el runtime **registrado** `Wine-BattleNet-11.0` (no el `.app` de D4Mac, que ya no existe en disco) tras un reinicio limpio, se aisló por fin la causa raíz real y se llegó a **login funcional + Agent conectado**. Verificado con logs frescos (`~/.kalimotxo/logs/diag-*`, `battle.net-*.log`, `Agent-*.log`), `lsof` y `+winsock`/`+secur32`.
 
 ### Corrección importante a sesiones anteriores
 
@@ -304,7 +304,7 @@ Los bloqueos «GPU/ANGLE» y «TLS» que la sesión de la *tarde* dio por resuel
 
 Pendiente: validar el flujo **completo desde la UI de Kalimotxo** (botón «Abrir Battle.net»), login real e **instalación de D2R** end-to-end; y, opcionalmente, que `ensureBattleNetWineRuntimeLibs` se ejecute también al **instalar/sincronizar el runtime** (hoy se garantiza en cada `launch()`).
 
-> **Nota datos:** `~/.kalimotxo` ya no existe → `resolveDataDir()` usa `~/.macbattlenet` (datos reales). Si reaparece un `~/.kalimotxo` con contenido parcial, volvería a confundir a la app (ver nota de la sesión de la tarde).
+> **Nota datos:** `~/.kalimotxo` ya no existe → `resolveDataDir()` usa `~/.kalimotxo` (datos reales). Si reaparece un `~/.kalimotxo` con contenido parcial, volvería a confundir a la app (ver nota de la sesión de la tarde).
 
 ---
 

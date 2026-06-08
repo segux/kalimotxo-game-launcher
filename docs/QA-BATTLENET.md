@@ -1,6 +1,6 @@
 # QA Battle.net (E2E manual)
 
-Ejecutar en **Mac Apple Silicon** con botella limpia y una vez con `~/.macbattlenet` migrada.
+Ejecutar en **Mac Apple Silicon** con botella limpia y una vez con `~/.kalimotxo` migrada.
 
 ## Checklist
 
