@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/segux/kalimotxo/compare/v1.0.0...v1.1.0) (2026-06-10)
+
+
+### Features
+
+* DMG installer background with Kalimotxo logo ([f951576](https://github.com/segux/kalimotxo/commit/f951576371a33be624140843aabd2d94b081d81f))
+
 # 1.0.0 (2026-06-10)
 
 
