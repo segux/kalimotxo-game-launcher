@@ -1,3 +1,10 @@
+## [0.2.1](https://github.com/segux/kalimotxo/compare/v0.2.0...v0.2.1) (2026-06-12)
+
+
+### Bug Fixes
+
+* disable mf/winegstreamer completely (empty override) to prevent crash dialog ([02ac630](https://github.com/segux/kalimotxo/commit/02ac630d95496b8dc9ecd665e7fe4bacca7c6241))
+
 # [1.1.0](https://github.com/segux/kalimotxo/compare/v1.0.0...v1.1.0) (2026-06-10)
 
 
